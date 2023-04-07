@@ -19,12 +19,20 @@ class creditors extends Controller
                     WHERE d_status = 1
                     GROUP BY d_year
                     ORDER BY d_year ASC"));
-        $chart    = DB::select(DB::raw("SELECT d_type_name,SUM(d_cost) AS total
+        $total    = DB::select(DB::raw("SELECT d_type_name,SUM(d_cost) AS total
                     FROM d_list
                     WHERE d_status = 1
                     GROUP BY d_type_id 
-                    ORDER BY total DESC"));
-        return view('pages.dashboard',['creditor'=>$creditor,'crelist'=>$crelist,'list'=>$list,'pay'=>$pay,'paid'=>$paid,'year'=>$year,'chart'=>$chart]);
+                    ORDER BY total DESC
+                    LIMIT 5"));
+        
+        $complete    = DB::select(DB::raw("SELECT d_type_name,SUM(d_cost) AS total
+                    FROM d_list
+                    WHERE d_status = 3
+                    GROUP BY d_type_id 
+                    ORDER BY total DESC
+                    LIMIT 5"));
+        return view('pages.dashboard',['creditor'=>$creditor,'crelist'=>$crelist,'list'=>$list,'pay'=>$pay,'paid'=>$paid,'year'=>$year,'total'=>$total,'complete'=>$complete]);
     }
 
     public function all()

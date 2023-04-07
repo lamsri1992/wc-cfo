@@ -143,30 +143,58 @@
 @section('script')
 <script>
     const labels = [
-        @foreach ($chart as $res)
+        @foreach ($total as $res)
         [ "{{ $res->d_type_name }}"],
         @endforeach
     ];
+    const data = {
+    labels: labels,
+        datasets: [
+            {
+                label: 'ยอดหนี้คงค้าง',
+                data: [
+                    @foreach ($total as $res)
+                    "{{ $res->total }}",
+                    @endforeach
+                ],
+                backgroundColor: [
+                    '#dc3545',
+                ],
+                borderColor: [
+                    '#dc3545',
+                ],
+            },
+            {
+                label: 'ยอดหนี้ชำระแล้ว',
+                data: [
+                    @foreach ($complete as $res)
+                    "{{ $res->total }}",
+                    @endforeach
+                ],
+                backgroundColor: [
+                    '#198754',
+                ],
+                borderColor: [
+                    '#198754',
+                ],
+            }
+        ]
+    };
     const config = {
       type: 'bar',
-      data: {
-        datasets: [{
-            label: 'ยอดหนี้ทั้งหมด',
-            data: [
-                @foreach ($chart as $res)
-                "{{ $res->total }}",
-                @endforeach
-            ],
-            backgroundColor: [
-                '#6f42c1c4',
-            ],
-            borderColor: [
-                '#6f42c1c4',
-            ],
-        }],
-        labels: labels
-    },
-      options: {}
+      data: data,
+        options: {
+            responsive: true,
+            plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'แสดง 5 อันดับหนี้คงค้าง + ชำระแล้ว'
+            }
+            }
+        },
     };
 
     const labels2 = [
