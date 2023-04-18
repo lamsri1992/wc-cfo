@@ -21,7 +21,7 @@
                             </h5>
                         </div>
                         <div class="col-md-6 text-end" style="margin-top: 0.8rem;">
-                            <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addNew">
+                            <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newDept">
                                 <i class="fa-solid fa-circle-plus"></i>
                                 เพิ่มเจ้าหนี้ใหม่
                             </a>
@@ -43,8 +43,8 @@
                             @foreach ($result as $res)
                             <tr onclick="location.href='{{ route('credit.show',$res->d_id) }}'">
                                 <td class="text-center">{{ $res->d_year }}</td>
-                                <td>{{ $res->d_creditor_name }}</td>
-                                <td class="text-center">{{ $res->d_type_name }}</td>
+                                <td>{{ $res->cre_name }}</td>
+                                <td class="text-center">{{ $res->type_name }}</td>
                                 <td class="text-center">{{ DateThai($res->d_date_create) }}</td>
                                 <td class="text-center">
                                     <span class="badge bg-secondary" style="width: 100%;">
@@ -83,9 +83,9 @@
         </div>
     </div>
 </section>
-<div class="modal fade" id="addNew" tabindex="-1">
+<div class="modal fade" id="newDept" tabindex="-1">
     <div class="modal-dialog modal-xl">
-        <form action="#" class="row g-3">
+        <form action="{{ route('credit.add') }}" class="row g-3">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
@@ -103,6 +103,12 @@
                         </div>
                         <div class="col-md-6" style="margin-bottom: 0.5rem;">
                             <div class="form-floating">
+                                <input type="text" class="form-control" id="d_cost" name="d_cost" placeholder="ยอดหนี้ค้างชำระ">
+                                <label for="d_cost">ยอดหนี้ค้างชำระ</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="margin-bottom: 0.5rem;">
+                            <div class="form-floating">
                                 <input type="text" class="form-control basicDate" id="d_date_create" name="d_date_create" placeholder="วันที่ลงหนี้">
                                 <label for="d_date_create">วันที่ลงหนี้</label>
                             </div>
@@ -114,14 +120,8 @@
                             </div>
                         </div>
                         <div class="col-md-6" style="margin-bottom: 0.5rem;">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="d_cost" name="d_cost" placeholder="ยอดหนี้ค้างชำระ">
-                                <label for="d_cost">ยอดหนี้ค้างชำระ</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6" style="margin-bottom: 0.5rem;">
                             <label for="d_type_id">ประเภทหนี้</label>
-                            <select name="d_type_id" class="form-select basic-select2">
+                            <select name="d_type_id" class="form-select basic-select2-nm">
                                 <option></option>
                                 @foreach ($type as $res)
                                 <option value="{{ $res->type_id }}">
@@ -132,7 +132,7 @@
                         </div>
                         <div class="col-md-6" style="margin-bottom: 0.5rem;">
                             <label for="d_creditor_id">เจ้าหนี้</label>
-                            <select name="d_creditor_id" class="form-select basic-select2">
+                            <select name="d_creditor_id" class="form-select basic-select2-nm">
                                 <option></option>
                                 @foreach ($credit as $res)
                                 <option value="{{ $res->cre_id }}">
@@ -155,8 +155,8 @@
                         </div>
                         <div class="col-md-12" style="margin-bottom: 0.5rem;">
                             <div class="form-floating">
-                                <textarea class="form-control" id="d_detail" name="d_detail" placeholder="ระบุหมายเหตุ" style="height: 100px;"></textarea>
-                                <label for="d_detail">หมายเหตุ</label>
+                                <textarea class="form-control" id="d_detail" name="d_detail" placeholder="ระบุหมายเหตุ/รายละเอียด" style="height: 100px;"></textarea>
+                                <label for="d_detail">หมายเหตุ/รายละเอียด</label>
                             </div>
                         </div>
                     </div>

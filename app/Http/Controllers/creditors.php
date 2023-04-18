@@ -37,7 +37,10 @@ class creditors extends Controller
 
     public function all()
     {
-        $result = DB::table('d_list')->where('d_status',1)->get();
+        $result = DB::table('d_list')
+                ->join('creditors','creditors.cre_id','d_list.d_creditor_id')
+                ->join('d_type','d_type.type_id','d_list.d_type_id')
+                ->where('d_status',1)->get();
         return view('pages.list',['result'=>$result]);
     }
 
@@ -54,6 +57,27 @@ class creditors extends Controller
                     ->join('d_type','d_type.type_id','d_list.d_type_id')
                     ->where('d_id',$id)->first();
         return view('pages.show',['list'=>$list]);
+    }
+
+    public function add(Request $request)
+    {
+        $log = 'สร้างข้อมูลหนี้เมื่อ '.DateTimeThai(date('Y-m-d h:i:s')).' โดย :: ผู้ดูแลระบบ';
+        $log_add = $request->d_log.','.$log;
+        DB::table('d_list')->insert(
+            [
+                'd_year' => $request->d_year,
+                'd_date_create' => $request->d_date_create,
+                'd_date_order' => $request->d_date_order,
+                'd_cost' => $request->d_cost,
+                'd_type_id' => $request->d_type_id,
+                'd_creditor_id' => $request->d_creditor_id,
+                'd_doc_no' => $request->d_doc_no,
+                'd_bill_no' => $request->d_bill_no,
+                'd_note' => $request->d_note,
+                'd_log' => $log_add,
+            ]
+        );
+        return back()->with('success','สร้างข้อมูลหนี้สำเร็จ');
     }
 
     public function update(Request $request,$id)

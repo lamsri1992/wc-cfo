@@ -174,6 +174,15 @@
             });
         });
 
+         // SELECT2
+         $(document).ready(function() {
+            $('.basic-select2-nm').select2({ 
+                width: '100%',
+                placeholder: 'กรุณาเลือก',
+                dropdownParent: $('#newDept'),
+            });
+        });
+
         $(document).ready(function() {
             $('.basic-multiple').select2({
                 width: '100%',
