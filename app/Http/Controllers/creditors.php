@@ -62,7 +62,6 @@ class creditors extends Controller
     public function add(Request $request)
     {
         $log = 'สร้างข้อมูลหนี้เมื่อ '.DateTimeThai(date('Y-m-d h:i:s')).' โดย :: ผู้ดูแลระบบ';
-        $log_add = $request->d_log.','.$log;
         DB::table('d_list')->insert(
             [
                 'd_year' => $request->d_year,
@@ -74,7 +73,7 @@ class creditors extends Controller
                 'd_doc_no' => $request->d_doc_no,
                 'd_bill_no' => $request->d_bill_no,
                 'd_note' => $request->d_note,
-                'd_log' => $log_add,
+                'd_log' => $log,
             ]
         );
         return back()->with('success','สร้างข้อมูลหนี้สำเร็จ');
