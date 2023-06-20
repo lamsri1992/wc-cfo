@@ -132,8 +132,11 @@ class creditors extends Controller
         if($request->s_type == NULL){ $qry_type = ""; } else { $qry_type = "AND d_type_id = '$request->s_type'"; }
         if($request->s_credit == NULL){ $qry_credit = ""; } else { $qry_credit = "AND d_creditor_id = '$request->s_credit'"; }
 
-        $result = DB::select(DB::raw("SELECT * FROM d_list
+        $result = DB::select(DB::raw(
+               "SELECT * FROM d_list
                 LEFT JOIN d_status ON d_status.st_id = d_list.d_status
+                LEFT JOIN creditors ON creditors.cre_id = d_list.d_creditor_id
+                LEFT JOIN d_type ON d_type.type_id = d_list.d_type_id
                 WHERE d_status = '$request->s_status' $qry_year $qry_type $qry_credit
                 AND d_date_create BETWEEN '$request->s_start' AND '$request->s_end'"));
         return view('pages.report',['result'=>$result]);

@@ -39,8 +39,8 @@
                             @foreach ($result as $res)
                             <tr>
                                 <td class="text-center">{{ $res->d_year }}</td>
-                                <td style="width: 30%;">{{ $res->d_creditor_name }}</td>
-                                <td style="width: 20%;">{{ $res->d_type_name }}</td>
+                                <td style="width: 30%;">{{ $res->cre_name }}</td>
+                                <td style="width: 20%;">{{ $res->type_name }}</td>
                                 <td style="width: 15%;" class="text-center">{{ DateThai($res->d_date_create) }}</td>
                                 <td style="width: 15%;" class="text-center">{{ DateThai($res->d_date_order) }}</td>
                                 <td class="text-center">{{ $res->d_doc_no }}</td>
