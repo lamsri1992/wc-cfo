@@ -180,6 +180,7 @@
                 width: '100%',
                 placeholder: 'กรุณาเลือก',
                 dropdownParent: $('#newDept'),
+                tags: true
             });
         });
 

@@ -62,21 +62,41 @@ class creditors extends Controller
     public function add(Request $request)
     {
         $log = 'สร้างข้อมูลหนี้เมื่อ '.DateTimeThai(date('Y-m-d h:i:s')).' โดย :: ผู้ดูแลระบบ';
-        DB::table('d_list')->insert(
-            [
-                'd_year' => $request->d_year,
-                'd_date_create' => $request->d_date_create,
-                'd_date_order' => $request->d_date_order,
-                'd_cost' => $request->d_cost,
-                'd_type_id' => $request->d_type_id,
-                'd_creditor_id' => $request->d_creditor_id,
-                'd_doc_no' => $request->d_doc_no,
-                'd_bill_no' => $request->d_bill_no,
-                'd_note' => $request->d_note,
-                'd_log' => $log,
-            ]
-        );
-        return back()->with('success','สร้างข้อมูลหนี้สำเร็จ');
+        $check = is_numeric($request->d_creditor_id);
+        if($check == false){
+            $cre_id = DB::table('creditors')->insertGetId([ 'cre_name' => $request->d_creditor_id ]);
+            DB::table('d_list')->insert(
+                [
+                    'd_year' => $request->d_year,
+                    'd_date_create' => $request->d_date_create,
+                    'd_date_order' => $request->d_date_order,
+                    'd_cost' => $request->d_cost,
+                    'd_type_id' => $request->d_type_id,
+                    'd_creditor_id' => $cre_id,
+                    'd_doc_no' => $request->d_doc_no,
+                    'd_bill_no' => $request->d_bill_no,
+                    'd_note' => $request->d_note,
+                    'd_log' => $log,
+                ]
+            );
+            return back()->with('success','สร้างข้อมูลหนี้สำเร็จ');
+        }else{
+            DB::table('d_list')->insert(
+                [
+                    'd_year' => $request->d_year,
+                    'd_date_create' => $request->d_date_create,
+                    'd_date_order' => $request->d_date_order,
+                    'd_cost' => $request->d_cost,
+                    'd_type_id' => $request->d_type_id,
+                    'd_creditor_id' => $request->d_creditor_id,
+                    'd_doc_no' => $request->d_doc_no,
+                    'd_bill_no' => $request->d_bill_no,
+                    'd_note' => $request->d_note,
+                    'd_log' => $log,
+                ]
+            );
+            return back()->with('success','สร้างข้อมูลหนี้สำเร็จ');
+        }
     }
 
     public function update(Request $request,$id)

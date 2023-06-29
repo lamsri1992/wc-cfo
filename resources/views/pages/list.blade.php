@@ -22,8 +22,8 @@
                         </div>
                         <div class="col-md-6 text-end" style="margin-top: 0.8rem;">
                             <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newDept">
-                                <i class="fa-solid fa-circle-plus"></i>
-                                เพิ่มเจ้าหนี้ใหม่
+                                <i class="fa-solid fa-file-circle-plus"></i>
+                                บันทึกข้อมูลหนี้ใหม่
                             </a>
                         </div>
                     </div>
@@ -159,6 +159,11 @@
                                 <label for="d_detail">หมายเหตุ/รายละเอียด</label>
                             </div>
                         </div>
+                        <div class="col-md-12" style="margin-bottom: 0.5rem;">
+                            <div class="form-floating text-center">
+                               <small class="text-danger">* หากค้นหาแล้วไม่มีรายการเจ้าหนี้ ให้ระบุเจ้าหนี้รายใหม่ จากนั้นระบบจะทำการบันทึกโดยอัตโนมัติ *</small>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -177,8 +182,8 @@
                                 form.reset();
                             }
                         })">
-                        <i class="fa-solid fa-plus-circle"></i>
-                        เพิ่มเจ้าหนี้ใหม่
+                       <i class="fa-solid fa-file-circle-plus"></i>
+                       บันทึกข้อมูลหนี้ใหม่
                     </button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         ปิด
